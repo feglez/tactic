@@ -90,8 +90,10 @@ documented in `configs/paths.yaml`:
 TLiveUGR message content is not redistributed, in line with the Telegram Terms
 of Service and applicable data-protection regulations. What is released is the
 monitoring client (`collector/`) and the list of collected channel identifiers
-(`data/tliveugr_channels.csv`), so the snapshot can be reconstructed under the
-same terms.
+(`data/tliveugr_channels.csv`), so the collection can be repeated over the same
+channels under the same terms; since channels are banned, renamed, or pruned
+over time, a re-collection approximates the studied snapshot instead of
+replicating it exactly.
 
 ## Running
 

@@ -43,8 +43,10 @@ distribute session files.
 
 The set of channels to monitor is supplied by the user as a plain-text
 `channels.txt` file (one channel username or `t.me` link per line), consumed by
-`join_channel.py`. **The channel list studied in the paper is not distributed
-in this repository.**
+`join_channel.py`. A ready-to-use `channels.txt` is not provided; the
+identifiers of the channels studied in the paper are released at
+[`data/tliveugr_channels.csv`](../data/tliveugr_channels.csv), and message
+content is not distributed.
 
 Runtime outputs (`logs/`, `data/`, `joined_channels.txt`,
 `consolidated_channel_data.csv`, result folders) are generated locally and are
