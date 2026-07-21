@@ -1,0 +1,54 @@
+# ============================================================================
+# Global path variables shared by every stage config.
+#
+# Stage configs reference these as ${var_name}. The variable ${project_root}
+# is built in and always resolves to the tactic project root. Variables may
+# reference previously defined variables (top to bottom).
+#
+# Edit this ONE file to point the pipeline at your data. Stage configs should
+# not need editing for a simple relocation.
+#
+# ENVIRONMENT OVERRIDES: every variable below can be overridden per invocation
+# with TACTIC_<VAR_IN_UPPERCASE> (e.g. TACTIC_DATA_ROOT, TACTIC_OUTPUT_ROOT,
+# TACTIC_MODELS_ROOT, TACTIC_TGDATASET_RAW_DIR). run_pipeline.sh resolves its
+# own paths through the SAME mechanism, so bash and Python always agree.
+# The override applies at the variable's definition point: variables defined
+# later that reference it (e.g. models_root → output_root) follow it.
+#
+# To reuse existing data instead of recomputing it, point the relevant
+# variable at the directory that holds it. Example:
+#   export TACTIC_TGDATASET_PROCESSED_DIR=/path/to/existing/processed_csvs
+#   export TACTIC_MODELS_ROOT=/path/to/existing/trained_models
+# Externally-provided directories are treated as READ-ONLY: the pipeline
+# never writes or deletes outside ${output_root}.
+# ============================================================================
+vars:
+  # User-placed raw inputs:
+  #   ${data_root}/TGDataset_raw/          the 121 raw TGDataset JSON files, flat
+  #   ${data_root}/darkgram_raw/           the DarkGram category CSVs
+  #   ${data_root}/tliveugr/final_logs/    TLiveUGR collection logs
+  #   ${data_root}/tgdataset_labels/       TGDataset channel->category / ->language maps
+  #   ${data_root}/models/lid.176.bin      fastText language-ID model
+  data_root: "${project_root}/data"
+
+  # The 121 raw TGDataset (Zenodo) JSON files, flat. Keep original filenames,
+  # since processing order is sorted(*.json) and downstream artifacts depend on it.
+  tgdataset_raw_dir: "${data_root}/TGDataset_raw"
+
+  # fastText lid.176.bin. Download it from
+  # https://dl.fbaipublicfiles.com/fasttext/supervised-models/lid.176.bin
+  fasttext_model_path: "${data_root}/models/lid.176.bin"
+
+  # Where pipeline runs write their outputs.
+  output_root: "${project_root}/outputs"
+
+  # The cleaned per-file TGDataset CSVs: step 01's output and the input of
+  # later preprocessing steps. Point this at an existing copy to skip the
+  # step-01 recompute. An external copy is never rewritten in place.
+  tgdataset_processed_dir: "${output_root}/preprocessing/tgdataset/processed"
+
+  # Where trained BERTopic models are published and read by the apply /
+  # metrics / assignments stages. Point this at an existing trained-models
+  # directory to reuse a final model instead of retraining. The pipeline only
+  # ever writes models under ${output_root}/trained_models.
+  models_root: "${output_root}/trained_models"

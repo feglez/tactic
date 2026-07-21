@@ -1,0 +1,8 @@
+# Final model selection: composite-score the final-sweep metrics and print
+# the winning model.
+stage: bertopic_score_final
+paths:
+  metrics_csv: "${output_root}/bertopic_output/model_metrics_final.csv"
+  scored_csv: "${output_root}/bertopic_output/model_metrics_final_scored.csv"
+params:
+  target_topics: 45               # target topic count T* for the topic-count penalty

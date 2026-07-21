@@ -1,0 +1,18 @@
+# Apply (transform) the frozen final model to the TGDataset final dataset.
+# Writes topics.pkl to ${output_root}/bertopic_output/inference/tgdataset/.
+# NOTE: the embeddings cache is deliberately NOT shared with the final
+# training stage. Training reads Channel ID numerically while the apply and
+# assignment stages read it as a string, so the two sides order the
+# micro-batch documents differently. Reusing the training cache would
+# silently permute the embeddings. This cache is computed on the first
+# apply run.
+stage: bertopic_apply_tgdataset
+paths:
+  # produced by step 04. To reuse an existing artifact, place it at this path
+  dataset_csv: "${output_root}/preprocessing/translation/final_dataset.csv"
+  model_dir: "${models_root}/bertopic_final_65ea4f"
+  doc_embeddings: "${output_root}/bertopic_output/tgdataset_document_embeddings.pkl"
+  output_dir: "${output_root}/bertopic_output/inference/tgdataset"
+params:
+  input_mode: single_csv
+  embedding_model: all-MiniLM-L6-v2

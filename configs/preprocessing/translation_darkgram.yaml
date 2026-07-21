@@ -1,0 +1,12 @@
+# Phase 1, DarkGram step 2: translate all non-English rows (MarianMT, row-by-row).
+stage: translate_darkgram
+paths:
+  # Consolidated/cleaned DarkGram CSV, produced by step 07. To reuse an
+  # existing artifact, place it at this path
+  in_csv: "${output_root}/preprocessing/darkgram/darkgram_preprocessed_final.csv"
+  out_csv: "${output_root}/preprocessing/darkgram/darkgram_translated_final.csv"
+  metrics_json: "${output_root}/preprocessing/darkgram/darkgram_translation_metrics.json"
+params:
+  chunk_size: 50000
+  max_length: 512
+  save_every: 2000

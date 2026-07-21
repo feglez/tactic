@@ -1,0 +1,8 @@
+# Phase 3 preparation, DarkGram: coalesce processed_message (keeps category).
+stage: prepare_llm_input_darkgram
+paths:
+  # produced by step 08. To reuse an existing artifact, place it at this path
+  dataset_csv: "${output_root}/preprocessing/darkgram/darkgram_translated_final.csv"
+  output_csv: "${output_root}/preprocessing/darkgram_llm_input.csv"
+params:
+  variant: "darkgram"

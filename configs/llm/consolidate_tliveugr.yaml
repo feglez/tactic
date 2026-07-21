@@ -1,0 +1,17 @@
+# TLiveUGR channel consolidation: one channel-level row per channel for the LLM stage.
+stage: llm_consolidate_tliveugr
+
+paths:
+  # Channel metadata (Username) is read from the assembled CSV shards.
+  # produced by step 10. To reuse an existing artifact, place it at this path
+  metadata_dir: "${output_root}/preprocessing/tliveugr/final"
+  # produced by step 30. To reuse an existing artifact, place it at this path
+  assignments_csv: "${output_root}/llm/assignments/tliveugr/tliveugr_channel_topic_assignments_filtered.csv"
+  topics_csv: "${output_root}/llm/assignments/tliveugr/tliveugr_filtered_extracted_topics.csv"
+  category_map: null                     # TLiveUGR has no ground-truth category map
+  output_csv: "${output_root}/llm/consolidated/tliveugr_consolidated_channel_data.csv"
+
+params:
+  metadata_source: shard_dir
+  metadata_columns: ["Username"]
+  keep_only_assigned: false

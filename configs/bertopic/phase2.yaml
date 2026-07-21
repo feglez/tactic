@@ -1,0 +1,22 @@
+# BERTopic tuning phase 2: n_components × epsilon refinement on the stage-1 top-3.
+# Requires the stage-1 metrics (21_compute_metrics.py pointed at the stage-1
+# run log), the stage-1 run log and the cached tuning embeddings.
+stage: bertopic_phase2
+paths:
+  # produced by step 04. To reuse an existing artifact, place it at this path
+  dataset_csv: "${output_root}/preprocessing/translation/tuning_dataset.csv"
+  output_dir: "${output_root}/bertopic_output"
+  run_log: "${output_root}/bertopic_output/results_log_stage2.csv"
+  doc_embeddings: "${output_root}/bertopic_output/tuning_document_embeddings.pkl"
+  prev_metrics: "${output_root}/bertopic_output/model_metrics_stage1.csv"
+  prev_scored: "${output_root}/bertopic_output/model_metrics_stage1_scored.csv"
+  prev_log: "${output_root}/bertopic_output/results_log_stage1.csv"
+params:
+  phase: phase2
+  n_jobs: 4
+  parallel: true
+  model_name_pattern: "bertopic_{uid}"
+  embeddings_mode: require_cached  # reuses the phase-1 embeddings cache
+  embedding_model: all-MiniLM-L6-v2
+  target_topics: 45
+  progress_desc: "Stage 2 Runs"

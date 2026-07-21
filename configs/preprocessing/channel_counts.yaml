@@ -1,0 +1,11 @@
+# Phase 1, TGDataset step 2: per-channel message counts + channel→file mapping.
+# Usage: python3 scripts/02_count_channel_messages.py --config configs/preprocessing/channel_counts.yaml
+stage: channel_counts
+paths:
+  # The cleaned per-JSON CSVs from step 01
+  csv_dir: "${tgdataset_processed_dir}"
+  # Counts are written in first-seen scan order. Downstream sampling shuffles
+  # this file with a fixed seed, so row order matters.
+  out_csv: "${output_root}/preprocessing/tgdataset_labels/channel_message_counts.csv"
+params:
+  chunk_size: 100000

@@ -1,0 +1,44 @@
+# DarkGram LLM classification.
+stage: llm_classify_darkgram
+
+paths:
+  # produced by step 31. To reuse an existing artifact, place it at this path
+  consolidated_csv: "${output_root}/llm/consolidated/darkgram_consolidated_channel_data.csv"
+  # produced by step 11, the source of the sampled posts (and the ground-truth category)
+  messages_csv: "${output_root}/preprocessing/darkgram_llm_input.csv"
+  output_dir: "${output_root}/llm/results/darkgram"
+
+params:
+  evidence_mode: username              # DarkGram uses @username
+  messages_source: llm_input_csv
+  message_column: processed_message
+  consolidated_channel_id_as_string: true
+  variability_threshold: 1800
+  last_chars_budget: 50
+  debug_limit: null
+  omit_topics: false
+  resume: false
+  budget_pin_log: null
+  ground_truth:
+    source: messages_merge             # DarkGram's ground-truth category comes from the messages table
+    source_column: category
+    result_column: darkgram_category
+
+llm:
+  transport: ollama_generate           # ollama_generate (default) | litellm
+  model: "ollama/gpt-oss:20b_telegramResearch_darkgram"
+  api_base: "http://localhost:11434"
+  api_key_env: null
+  few_shot_in_messages: false
+  temperature: 0.0
+  seed: 42
+  num_ctx: 6000
+  extra_params:
+    num_ctx: 6000
+  # ---- Alternative: route through a LiteLLM proxy (not token-identical) ----
+  # transport: litellm
+  # model: "openai/your-proxy-alias"
+  # api_base: "https://your-litellm-proxy.example/v1"
+  # api_key_env: "LITELLM_API_KEY"
+  # few_shot_in_messages: true
+  # extra_params: {}

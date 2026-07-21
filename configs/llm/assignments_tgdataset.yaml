@@ -1,0 +1,18 @@
+# TGDataset topic assignments: attach the frozen model's topic IDs and
+# salience-filter per channel.
+stage: llm_assignments_tgdataset
+
+paths:
+  # produced by step 11. To reuse an existing artifact, place it at this path
+  input_csv: "${output_root}/preprocessing/tgdataset_llm_input.csv"
+  # frozen final model + its transform output for this dataset
+  model_dir: "${models_root}/bertopic_final_65ea4f"
+  topics_pkl: "${output_root}/bertopic_output/inference/tgdataset/topics.pkl"
+  output_dir: "${output_root}/llm/assignments/tgdataset"
+
+params:
+  agg_size: 10                      # must equal the apply-stage micro-batch size (fixed at 10). A mismatch aborts on the length guard
+  input_mode: single_csv            # single_csv | shard_dir
+  message_column: processed_message
+  salience_threshold: 25            # % of a channel's chunks a topic must cover
+  output_prefix: ""                 # "" (TGDataset) | "darkgram_" | "tliveugr_"

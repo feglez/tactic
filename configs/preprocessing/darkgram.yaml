@@ -1,0 +1,25 @@
+# Phase 1, DarkGram step 1: consolidate + clean + language-detect DarkGram CSVs.
+# Usage: python3 scripts/07_preprocess_darkgram.py --config configs/preprocessing/darkgram.yaml
+stage: preprocess_darkgram
+paths:
+  # The raw DarkGram per-category CSVs, one CSV per category. The filename
+  # stem becomes the category label.
+  raw_dir: "${data_root}/darkgram_raw"
+  out_csv: "${output_root}/preprocessing/darkgram/darkgram_preprocessed_final.csv"
+  # fastText lid.176.bin (see configs/preprocessing/tgdataset.yaml)
+  fasttext_model: "${fasttext_model_path}"
+  artifacts_dir: "${output_root}/preprocessing/darkgram/artifacts"
+  logs_dir: "${output_root}/preprocessing/darkgram/logs"
+params:
+  chunk_size: 100000
+  min_words: 4
+  # Raw CSV files to skip entirely
+  exclude: ["benign.csv"]
+  # Whitespace collapse pattern: all Unicode horizontal whitespace (\h+)
+  whitespace_regex: unicode_horizontal
+  # Regex engine for the scrub patterns: the `regex` module
+  regex_engine: regex
+  # fastText input normalization: all whitespace collapsed
+  fasttext_input_norm: split_join
+  # NaN `message` coercion before cleaning: fillna("") then astype(str)
+  message_na_coercion: fillna_empty

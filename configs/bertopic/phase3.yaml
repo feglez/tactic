@@ -1,0 +1,20 @@
+# BERTopic tuning phase 3: unigram vs unigram+bigram sweep on the stage-2 winner.
+stage: bertopic_phase3
+paths:
+  # produced by step 04. To reuse an existing artifact, place it at this path
+  dataset_csv: "${output_root}/preprocessing/translation/tuning_dataset.csv"
+  output_dir: "${output_root}/bertopic_output"
+  run_log: "${output_root}/bertopic_output/results_log_stage3.csv"
+  doc_embeddings: "${output_root}/bertopic_output/tuning_document_embeddings.pkl"
+  prev_metrics: "${output_root}/bertopic_output/model_metrics_stage2.csv"
+  prev_scored: "${output_root}/bertopic_output/model_metrics_stage2_scored.csv"
+  prev_log: "${output_root}/bertopic_output/results_log_stage2.csv"
+params:
+  phase: phase3
+  n_jobs: 2
+  parallel: true
+  model_name_pattern: "bertopic_{uid}"
+  embeddings_mode: require_cached  # reuses the phase-1 embeddings cache
+  embedding_model: all-MiniLM-L6-v2
+  target_topics: 45
+  progress_desc: "Stage 3 Runs"

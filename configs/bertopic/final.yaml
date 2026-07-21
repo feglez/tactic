@@ -1,0 +1,27 @@
+# BERTopic final fit: the stage-3 winning configuration re-fit on the 2M
+# final dataset, sweeping min_cluster_size. Every other hyperparameter is
+# inherited from the stage-3 winner.
+stage: bertopic_final
+paths:
+  # produced by step 04. To reuse an existing artifact, place it at this path
+  dataset_csv: "${output_root}/preprocessing/translation/final_dataset.csv"
+  output_dir: "${output_root}/bertopic_output"
+  run_log: "${output_root}/bertopic_output/results_log_final.csv"
+  doc_embeddings: "${output_root}/bertopic_output/final_document_embeddings.pkl"
+  prev_metrics: "${output_root}/bertopic_output/model_metrics_stage3.csv"
+  # The final stage re-scores the stage-3 metrics into its own copy:
+  prev_scored: "${output_root}/bertopic_output/model_metrics_stage3_rescored.csv"
+  prev_log: "${output_root}/bertopic_output/results_log_stage3.csv"
+params:
+  # null = built-in min_cluster_size sweep (eleven fixed values plus three
+  # document-ratio-derived values). [500] trains only the published winning
+  # configuration (bertopic_final_65ea4f).
+  min_cluster_sizes: null
+  phase: final
+  n_jobs: 4
+  parallel: true
+  model_name_pattern: "bertopic_final_{uid}"
+  embeddings_mode: compute_if_missing
+  embedding_model: all-MiniLM-L6-v2
+  target_topics: 45
+  progress_desc: "Final BERTopic Runs"

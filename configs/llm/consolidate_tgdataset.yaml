@@ -1,0 +1,17 @@
+# TGDataset channel consolidation: one channel-level row per channel for the LLM stage.
+stage: llm_consolidate_tgdataset
+
+paths:
+  # produced by step 11. To reuse an existing artifact, place it at this path
+  messages_csv: "${output_root}/preprocessing/tgdataset_llm_input.csv"
+  # produced by step 30. To reuse an existing artifact, place it at this path
+  assignments_csv: "${output_root}/llm/assignments/tgdataset/channel_topic_assignments_filtered.csv"
+  topics_csv: "${output_root}/llm/assignments/tgdataset/filtered_extracted_topics.csv"
+  # Curated TGDataset channel -> category labels (columns: ch_ID, topic).
+  category_map: "${data_root}/tgdataset_labels/ch_to_topic_mapping.csv"
+  output_csv: "${output_root}/llm/consolidated/tgdataset_consolidated_channel_data.csv"
+
+params:
+  metadata_source: llm_input_csv         # llm_input_csv | shard_dir
+  metadata_columns: ["Username", "Title"]
+  keep_only_assigned: true               # restrict metadata to channels in the assignments table

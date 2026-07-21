@@ -1,0 +1,18 @@
+[
+  {
+    "role": "user",
+    "content": "\n1) BERTopic analysis results\n   Main topic:\n     topic name: 9_hacking_hacker_hack_hackers\n     keywords: ['hacking', 'hacker', 'hack', 'hackers', 'passwords', 'exploit', 'cybersecurity', 'password', 'vulnerabilities', 'malware']\n     share: 31.80%\n   Secondary topics:\n     - topic name: 30_giftcards_paypall_paypal_cashapp\n       keywords: ['giftcards', 'paypall', 'paypal', 'cashapp', 'restock', 'restocked', 'giftme', 'coupon', 'redeem', 'promo']\n       share: 26.40%\n\n2) Sampled publications\n   - New **priv8 exploit kit**\nTargets: CMS X, panel Y.\nIncludes:\n- RCE chain PoC\n- Auto-scanner\nDM for price (crypto only).\n\n   - Stealer logs — 18k fresh (browsers + wallets + cookies).\nPreview:\nemail:pass\nsession tokens\ntelegram: @contact\n\n   - PayPal & Cash App **logs** (US/EU) — verified, replacement if dead.\nNo chargebacks. Escrow available.\n\n   - Gift card **methods** (retail/e-comm) + checker configs.\nUpdate v3.2 — success rate improved on store Z.\n\n   - Looking for **initial access**: cPanel/SSH small biz. Paying per host. Proof required.\n\n   - Tooling bundle:\nbruteforce configs\ncombo cleanup scripts\nbasic checker\n- weekend promo.\n\n3) Channel username\n   @OpsHub\n"
+  },
+  {
+    "role": "assistant",
+    "content": "RATIONALE: The publications advertise a private exploit kit with an RCE chain and auto-scanner alongside supporting hacking tools, and the highest-share topic is hacking/exploit keywords.\nCYBERCRIME ALERT: (\"Hacking Tools & Services\")"
+  },
+  {
+    "role": "user",
+    "content": "\n1) BERTopic analysis results\n   Main topic:\n     topic name: 33_nasa_astronauts_spacecraft_astronaut\n     keywords: ['nasa', 'astronauts', 'spacecraft', 'astronaut', 'cosmos', 'spacex', 'satellite', 'spaceweather', 'telescope', 'apollo']\n     share: 28.70%\n   Secondary topics:\n     - topic name: 12_symphonic_remix_genre_melodic\n       keywords: ['symphonic', 'remix', 'genre', 'melodic', 'artists', 'mixtape', 'ballad', 'albums', 'rap', 'soundcloud']\n       share: 17.60%\n\n2) Sampled publications\n   - NASA briefing: Artemis mission window updated.\nKey points:\n- SLS readiness review\n- Orion environmental tests\n- Docking sim footage released\n\n   - Image of the day — **H-alpha solar prominence**.\nCaptured by amateur telescope network.\nProcessing: stacking + deconvolution.\n\n   - SpaceX launch recap\nPayload: LEO comms sat\nStage: landed on droneship\nReplays + telemetry thread inside.\n\n   - Telescope buying guide (2025): dobsonian vs refractor,\naperture first, mount matters,\nstarter eyepieces.\n\n3) Channel username\n   @OrbitalNotes\n"
+  },
+  {
+    "role": "assistant",
+    "content": "RATIONALE: The publications are lawful space-news and astronomy education with no illegal activity, consistent with the dominant space topic.\nSAFE CHANNEL"
+  }
+]

@@ -1,0 +1,12 @@
+# Phase 1, TLiveUGR step 2: EN-only filter + rotating channel-grouped CSVs.
+# The assembled shards are consumed by the BERTopic apply + LLM stages.
+stage: tliveugr_assembly
+paths:
+  # Per-channel preprocessed CSVs, produced by step 09
+  in_path: "${output_root}/preprocessing/tliveugr/messages"
+  out_dir: "${output_root}/preprocessing/tliveugr/final"
+  metrics_json: "${output_root}/preprocessing/tliveugr/filter_group_metrics.json"
+params:
+  out_prefix: "tliveugr"
+  chunk_size: 100000
+  max_rows_per_file: 1000000

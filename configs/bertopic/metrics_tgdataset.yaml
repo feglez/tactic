@@ -1,0 +1,18 @@
+# Metrics generation: coherence/silhouette/outlier-rate/topic-count for every
+# model listed in a run log. The defaults evaluate the final sweep. To compute
+# metrics for a tuning or validation stage, override the four stage-specific
+# entries, e.g. for stage 1:
+#   --override paths.run_log="${output_root}/bertopic_output/results_log_stage1.csv" \
+#   --override paths.doc_embeddings="${output_root}/bertopic_output/tuning_document_embeddings.pkl" \
+#   --override paths.dataset_csv="${output_root}/preprocessing/translation/tuning_dataset.csv" \
+#   --override paths.metrics_csv="${output_root}/bertopic_output/model_metrics_stage1.csv"
+stage: bertopic_metrics_tgdataset
+paths:
+  # produced by step 04. To reuse an existing artifact, place it at this path
+  dataset_csv: "${output_root}/preprocessing/translation/final_dataset.csv"
+  doc_embeddings: "${output_root}/bertopic_output/final_document_embeddings.pkl"
+  run_log: "${output_root}/bertopic_output/results_log_final.csv"
+  models_dir: "${output_root}/bertopic_output"
+  metrics_csv: "${output_root}/bertopic_output/model_metrics_final.csv"
+params:
+  mode: multi

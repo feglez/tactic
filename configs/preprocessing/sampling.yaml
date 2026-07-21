@@ -1,0 +1,33 @@
+# Phase 1, TGDataset step 3: stratified sampling of messages for translation.
+# Run once per split, in order: tuning, validation1, validation2, validation3, final.
+stage: stratified_sampling
+paths:
+  # TGDataset-distribution channel→topic label file (place with your data)
+  topic_csv: "${data_root}/tgdataset_labels/ch_to_topic_mapping.csv"
+  # produced by step 02. To reuse an existing artifact, place it at this path
+  msg_counts_csv: "${output_root}/preprocessing/tgdataset_labels/channel_message_counts.csv"
+  # TGDataset-distribution channel→language label file (a TSV despite the .csv
+  # name, handled in code)
+  language_tsv: "${data_root}/tgdataset_labels/channel_to_language_mapping.csv"
+  # Cross-run exclusion ledger: every selected_message_indices_*.csv here
+  # counts as history. The tuning ledger is skipped by the loader, so the
+  # tuning sample is drawn independently. The validation and final samples exclude
+  # one another. Keep history_dir equal to out_dir and run the five splits in
+  # order so each run's output becomes the next run's history.
+  # WARNING: results depend on WHICH history files exist here at run time.
+  history_dir: "${output_root}/preprocessing/sampling"
+  # Where the two outputs are written:
+  #   selected_message_indices_<split>.csv and selected_channel_messages_<split>.csv
+  out_dir: "${output_root}/preprocessing/sampling"
+params:
+  # Per-split parameters (override per run):
+  #   tuning:      total  500000, max/channel 1000, seed 42
+  #   validation1: total  500000, max/channel 1000, seed 42
+  #   validation2: total  500000, max/channel 1000, seed 43
+  #   validation3: total  500000, max/channel 1000, seed 44
+  #   final:       total 2000000, max/channel 2000, seed 45
+  dataset_name: "final"          # tuning | validation1 | validation2 | validation3 | final
+  total_messages: 2000000
+  max_per_channel: 2000
+  english_fraction: 0.8
+  random_seed: 45

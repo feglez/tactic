@@ -1,0 +1,41 @@
+# TLiveUGR LLM classification.
+stage: llm_classify_tliveugr
+
+paths:
+  # produced by step 31. To reuse an existing artifact, place it at this path
+  consolidated_csv: "${output_root}/llm/consolidated/tliveugr_consolidated_channel_data.csv"
+  # sampled posts come from the assembled shards (step 10)
+  messages_dir: "${output_root}/preprocessing/tliveugr/final"
+  output_dir: "${output_root}/llm/results/tliveugr"
+
+params:
+  evidence_mode: username              # TLiveUGR uses @username
+  messages_source: shard_dir
+  message_column: message              # the assembled shards store text in "message"
+  consolidated_channel_id_as_string: true
+  variability_threshold: 1800
+  last_chars_budget: 50
+  debug_limit: null
+  omit_topics: false
+  resume: false
+  budget_pin_log: null
+  ground_truth: null                   # TLiveUGR has no ground-truth category labels
+
+llm:
+  transport: ollama_generate           # ollama_generate (default) | litellm
+  model: "ollama/gpt-oss:20b_telegramResearch_darkgram"
+  api_base: "http://localhost:11434"
+  api_key_env: null
+  few_shot_in_messages: false
+  temperature: 0.0
+  seed: 42
+  num_ctx: 6000
+  extra_params:
+    num_ctx: 6000
+  # ---- Alternative: route through a LiteLLM proxy (not token-identical) ----
+  # transport: litellm
+  # model: "openai/your-proxy-alias"
+  # api_base: "https://your-litellm-proxy.example/v1"
+  # api_key_env: "LITELLM_API_KEY"
+  # few_shot_in_messages: true
+  # extra_params: {}

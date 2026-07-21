@@ -1,0 +1,29 @@
+# Phase 1, TGDataset step 1: extract raw JSONs, clean messages, detect
+# languages, export metrics.
+# Usage: python3 scripts/01_preprocess_tgdataset.py --config configs/preprocessing/tgdataset.yaml
+stage: preprocess_tgdataset
+paths:
+  # The 121 raw TGDataset (Zenodo) JSON files, flat. Keep original filenames,
+  # since processing order is sorted(*.json) and downstream artifacts depend on it.
+  # Relocate via TACTIC_TGDATASET_RAW_DIR or configs/paths.yaml.
+  raw_dir: "${tgdataset_raw_dir}"
+  # The cleaned per-JSON CSVs consumed by every later TGDataset stage (counts,
+  # sampling, translation). When this points at an existing external copy, do
+  # NOT run step 01 (it rewrites the CSVs in place).
+  out_dir: "${tgdataset_processed_dir}"
+  # fastText lid.176.bin. Download it from
+  # https://dl.fbaipublicfiles.com/fasttext/supervised-models/lid.176.bin
+  fasttext_model: "${fasttext_model_path}"
+  artifacts_dir: "${output_root}/preprocessing/tgdataset/artifacts"
+  logs_dir: "${output_root}/preprocessing/tgdataset/logs"
+params:
+  chunk_size: 100000
+  min_words: 4
+  # Whitespace collapse pattern: ASCII space/tab only ([ \t]+)
+  whitespace_regex: ascii_space_tab
+  # Regex engine for the scrub patterns: stdlib `re`
+  regex_engine: re
+  # fastText input normalization: newlines become spaces
+  fasttext_input_norm: replace_newline
+  # NaN `message` coercion before cleaning: bare astype(str)
+  message_na_coercion: astype_str

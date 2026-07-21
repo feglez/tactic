@@ -1,0 +1,10 @@
+# Phase 3 preparation, TGDataset: coalesce processed_message + join title metadata.
+stage: prepare_llm_input_tgdataset
+paths:
+  # Translation output for the final (2M) split, produced by step 04
+  dataset_csv: "${output_root}/preprocessing/translation/final_dataset.csv"
+  # produced by step 06. To reuse an existing artifact, place it at this path
+  chid_to_title_csv: "${output_root}/preprocessing/tgdataset/chID_to_title.csv"
+  output_csv: "${output_root}/preprocessing/tgdataset_llm_input.csv"
+params:
+  variant: "tgdataset"

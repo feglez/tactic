@@ -1,0 +1,8 @@
+# Phase 1, TGDataset step 6: recover channel titles from raw JSONs (LLM-stage metadata).
+# Usage: python3 scripts/06_parse_channel_titles.py --config configs/preprocessing/channel_titles.yaml
+stage: channel_titles
+paths:
+  # Same flat raw TGDataset JSON folder as step 01
+  raw_dir: "${tgdataset_raw_dir}"
+  out_csv: "${output_root}/preprocessing/tgdataset/chID_to_title.csv"
+params: {}

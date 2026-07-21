@@ -1,0 +1,13 @@
+
+
+1) BERTopic analysis results
+   {bertopic_results}
+
+
+2) Sampled publications
+   {sampled_messages_str}
+
+
+3) Channel username
+   {channel_username}
+

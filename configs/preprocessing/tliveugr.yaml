@@ -1,0 +1,25 @@
+# Phase 1, TLiveUGR step 1: preprocess per-channel bot JSONs.
+# Usage: python3 scripts/09_preprocess_tliveugr.py --config configs/preprocessing/tliveugr.yaml
+stage: preprocess_tliveugr
+paths:
+  # PRIVATE dataset (TLiveUGR bot logs, ~2.1 GB JSON), not distributed.
+  raw_dir: "${data_root}/tliveugr/final_logs"
+  # Per-file cleaned message CSV shards consumed by the assembly step (10)
+  out_dir: "${output_root}/preprocessing/tliveugr/messages"
+  # fastText lid.176.bin (see configs/preprocessing/tgdataset.yaml)
+  fasttext_model: "${fasttext_model_path}"
+  artifacts_dir: "${output_root}/preprocessing/tliveugr/artifacts"
+  logs_dir: "${output_root}/preprocessing/tliveugr/logs"
+params:
+  chunk_size: 100000
+  min_words: 4
+  # Stop after two JSON files (quick smoke test)
+  debug_mode: false
+  # Whitespace collapse pattern: all Unicode horizontal whitespace (\h+)
+  whitespace_regex: unicode_horizontal
+  # Regex engine for the scrub patterns: the `regex` module
+  regex_engine: regex
+  # fastText input normalization: all whitespace collapsed
+  fasttext_input_norm: split_join
+  # NaN `message` coercion before cleaning: fillna("") then astype(str)
+  message_na_coercion: fillna_empty

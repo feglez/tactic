@@ -1,0 +1,13 @@
+# Transfer metrics: the frozen final model evaluated on the DarkGram corpus.
+# Reads the inference topics written by the apply stage (step 25).
+stage: bertopic_metrics_darkgram
+paths:
+  # produced by step 08. To reuse an existing artifact, place it at this path
+  dataset_csv: "${output_root}/preprocessing/darkgram/darkgram_translated_final.csv"
+  doc_embeddings: "${output_root}/bertopic_output/darkgram_document_embeddings.pkl"
+  model_dir: "${models_root}/bertopic_final_65ea4f"
+  topics_pkl: "${output_root}/bertopic_output/inference/darkgram/topics.pkl"
+  metrics_csv: "${output_root}/bertopic_output/model_metrics_darkgram.csv"
+params:
+  mode: single
+  model_name_suffix: "_darkgram"

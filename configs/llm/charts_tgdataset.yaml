@@ -1,0 +1,11 @@
+# TGDataset result reporting: category counts, summary, and charts.
+stage: llm_charts_tgdataset
+
+paths:
+  # produced by step 32
+  results_dir: "${output_root}/llm/results/tgdataset"
+  output_dir: "${output_root}/llm/results/tgdataset"
+
+params:
+  dataset_label: "TGDataset"
+  ground_truth_column: tgdataset_category

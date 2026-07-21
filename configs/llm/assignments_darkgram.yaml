@@ -1,0 +1,17 @@
+# DarkGram topic assignments: attach the frozen model's topic IDs and
+# salience-filter per channel.
+stage: llm_assignments_darkgram
+
+paths:
+  # produced by step 11. To reuse an existing artifact, place it at this path
+  input_csv: "${output_root}/preprocessing/darkgram_llm_input.csv"
+  model_dir: "${models_root}/bertopic_final_65ea4f"
+  topics_pkl: "${output_root}/bertopic_output/inference/darkgram/topics.pkl"
+  output_dir: "${output_root}/llm/assignments/darkgram"
+
+params:
+  agg_size: 10                      # must equal the apply-stage micro-batch size (fixed at 10). A mismatch aborts on the length guard
+  input_mode: single_csv
+  message_column: processed_message
+  salience_threshold: 25
+  output_prefix: "darkgram_"

@@ -1,0 +1,17 @@
+# TLiveUGR topic assignments: attach the frozen model's topic IDs and
+# salience-filter per channel.
+stage: llm_assignments_tliveugr
+
+paths:
+  # produced by step 10 (assembled shards). To reuse existing artifacts, place them here
+  input_dir: "${output_root}/preprocessing/tliveugr/final"
+  model_dir: "${models_root}/bertopic_final_65ea4f"
+  topics_pkl: "${output_root}/bertopic_output/inference/tliveugr/topics.pkl"
+  output_dir: "${output_root}/llm/assignments/tliveugr"
+
+params:
+  agg_size: 10                      # must equal the apply-stage micro-batch size (fixed at 10). A mismatch aborts on the length guard
+  input_mode: shard_dir
+  message_column: message           # the assembled shards store text in "message"
+  salience_threshold: 25
+  output_prefix: "tliveugr_"

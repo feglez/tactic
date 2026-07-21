@@ -1,0 +1,12 @@
+# Apply (transform) the frozen final model to the DarkGram dataset.
+# Writes topics.pkl to ${output_root}/bertopic_output/inference/darkgram/.
+stage: bertopic_apply_darkgram
+paths:
+  # produced by step 08. To reuse an existing artifact, place it at this path
+  dataset_csv: "${output_root}/preprocessing/darkgram/darkgram_translated_final.csv"
+  model_dir: "${models_root}/bertopic_final_65ea4f"
+  doc_embeddings: "${output_root}/bertopic_output/darkgram_document_embeddings.pkl"
+  output_dir: "${output_root}/bertopic_output/inference/darkgram"
+params:
+  input_mode: single_csv
+  embedding_model: all-MiniLM-L6-v2

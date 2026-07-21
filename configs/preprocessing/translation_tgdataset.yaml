@@ -1,0 +1,17 @@
+# Phase 1, TGDataset step 4: translate the sampled messages (MarianMT).
+# Produces <dataset_name>_dataset.csv, the BERTopic training dataset.
+stage: translate_tgdataset_selection
+paths:
+  # Cleaned per-file CSVs (step 01 output). Override TACTIC_TGDATASET_PROCESSED_DIR to relocate them.
+  data_dir: "${tgdataset_processed_dir}"
+  # produced by step 02. To reuse an existing artifact, place it at this path
+  counts_csv: "${output_root}/preprocessing/tgdataset_labels/channel_message_counts.csv"
+  # Selection indices for this split (step 03 output). Override per run:
+  #   --override paths.selection_csv=.../selected_message_indices_<name>.csv
+  selection_csv: "${output_root}/preprocessing/sampling/selected_message_indices_final.csv"
+  # Outputs derived from params.dataset_name inside out_dir:
+  #   <dataset_name>_dataset.csv and translation_metrics_<dataset_name>.json
+  out_dir: "${output_root}/preprocessing/translation"
+params:
+  dataset_name: "final"          # tuning | validation1 | validation2 | validation3 | final
+  save_every: 180

@@ -1,0 +1,27 @@
+# BERTopic validation: re-fit the stage-3 winning configuration on a held-out
+# validation split. Run once per split. The defaults target validation3. For
+# the other splits override the split-dependent values together, e.g.:
+#   --override paths.dataset_csv="${output_root}/preprocessing/translation/validation1_dataset.csv" \
+#   --override paths.doc_embeddings="${output_root}/bertopic_output/validation1_document_embeddings.pkl" \
+#   --override paths.run_log="${output_root}/bertopic_output/results_log_validation1.csv" \
+#   --override params.model_name_pattern="bertopic_validation1"
+# NOTE: the model name is fixed (no config hash), so re-runs overwrite the model
+# directory.
+stage: bertopic_validation
+paths:
+  # produced by step 04. To reuse an existing artifact, place it at this path
+  dataset_csv: "${output_root}/preprocessing/translation/validation3_dataset.csv"
+  output_dir: "${output_root}/bertopic_output"
+  run_log: "${output_root}/bertopic_output/results_log_validation3.csv"
+  doc_embeddings: "${output_root}/bertopic_output/validation3_document_embeddings.pkl"
+  prev_metrics: "${output_root}/bertopic_output/model_metrics_stage3.csv"
+  prev_scored: "${output_root}/bertopic_output/model_metrics_stage3_scored.csv"
+  prev_log: "${output_root}/bertopic_output/results_log_stage3.csv"
+params:
+  phase: validation
+  parallel: false                  # single configuration, serial run
+  model_name_pattern: "bertopic_validation3"
+  embeddings_mode: compute_if_missing
+  embedding_model: all-MiniLM-L6-v2
+  target_topics: 45
+  progress_desc: "Validation 3"
