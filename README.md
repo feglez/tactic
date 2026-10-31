@@ -187,7 +187,8 @@ the cost of no longer matching the published configuration.
 
 ## Citation
 
-The reference to the paper will be added upon publication.
+If you use TACTIC, please cite:
+F. González-López, F.J. Blanco-Jiménez, A. Casares-Andrés, P. García-Teodoro, "Topic-guided artificial intelligence for cybercriminal Telegram identification and classification", Engineering Applications of Artificial Intelligence 186 (2026) 116513. https://doi.org/10.1016/j.engappai.2026.116513
 
 ## License
 
